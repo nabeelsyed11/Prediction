@@ -1,4 +1,10 @@
-import os
+import os, zipfile
+
+# Unzip the model if .h5 file is not already extracted
+if not os.path.exists("cifar10_model.h5") and os.path.exists("cifar10_model.zip"):
+    with zipfile.ZipFile("cifar10_model.zip", 'r') as zip_ref:
+        zip_ref.extractall(".")
+        
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Suppress TensorFlow warnings
 import tensorflow as tf
 import streamlit as st
@@ -58,7 +64,8 @@ def load_model():
 
     return model
 
-model = load_model()
+model = tf.keras.models.load_model("cifar10_model.h5")
+
 
 # Streamlit UI
 st.title("🚀 CIFAR-10 Image Classifier")
@@ -85,4 +92,5 @@ if uploaded_file is not None:
     st.write("### 🔎 Top 3 Predictions")
     for i in top_indices:
         st.write(f"- {CLASS_NAMES[i]} ({prediction[0][i]*100:.2f}%)")
+
 
