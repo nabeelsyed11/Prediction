@@ -1,1 +1,1 @@
-# Predicyion
+# Prediction
