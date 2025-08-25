@@ -1,3 +1,6 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Suppress TensorFlow warnings
+import tensorflow as tf
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -82,3 +85,4 @@ if uploaded_file is not None:
     st.write("### 🔎 Top 3 Predictions")
     for i in top_indices:
         st.write(f"- {CLASS_NAMES[i]} ({prediction[0][i]*100:.2f}%)")
+
